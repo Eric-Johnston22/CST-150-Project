@@ -17,15 +17,20 @@ namespace CST_150_Project
             InitializeComponent();
         }
 
-        class Item
+        // Parent item class
+        abstract class Item
         {
             public string itemName;
             public int qty;
 
-            public Item(string a, int b)
+            // Return item type
+            public abstract string getType();
+            
+            // Constructor with parameters
+            public Item(string itemName, int qty)
             {
-                itemName = a;
-                qty = b;
+                this.itemName = itemName;
+                this.qty = qty;
             }
         }
 
@@ -34,22 +39,37 @@ namespace CST_150_Project
             public string type;
             public double size;
 
-            public Footwear (string a, int b, string c, double d) : base (a, b)
+
+            // Constructor with parameters
+            public Footwear (string itemName, int qty, string type, double size) : base (itemName, qty)
             {
-                type = c;
-                size = d;
+                this.type = type;
+                this.size = size;
+            }
+
+            // Return item type
+            public override string getType()
+            {
+                return type;
             }
         }
 
         class Softgoods : Item
         {
             public string type;
-            public double size;
+            public string size;
 
-            public Softgoods (string a, int b, string c, double d) : base (a, b)
+            // Constructor with parameters
+            public Softgoods (string itemName, int qty, string type, string size) : base(itemName, qty)
             {
-                type = c;
-                size = d;
+                this.type = type;
+                this.size = size;
+            }
+
+            // Return item type
+            public override string getType()
+            {
+                return type;
             }
         }
 
@@ -58,24 +78,37 @@ namespace CST_150_Project
             public string type;
             public double size;
 
-            public Hardgoods (string a, int b, string c, double d) : base (a, b)
+            // Constructor with parameters
+            public Hardgoods (string itemName, int qty, string type, double size) : base(itemName, qty)
             {
-                type = c;
-                size = d;
+                this.type = type;
+                this.size = size;
+            }
+
+            // Return item type
+            public override string getType()
+            {
+                return type;
             }
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            Footwear shoe = new Footwear("shoe", 16, "north face", 9.5);
-            Footwear boot = new Footwear("boot", 13, "lowa", 10);
-            Hardgoods tent = new Hardgoods("tent", 7, "3 season", 2);
+            // Create list of items
+            List<Item> ItemList = new List<Item>();
 
-            lstbx_inventory.Items.Add(shoe.itemName);
-            lstbx_inventory.Items.Add(boot.itemName);
-            lstbx_inventory.Items.Add(tent.type);
-
-            List<string> inventoryList = new List<string>();
+            // Create item objects and add to list
+            ItemList.Add(new Footwear("Hiking shoe", 3, "shoe", 9));
+            ItemList.Add(new Footwear("Hiking boot", 2, "boot", 10));
+            ItemList.Add(new Softgoods("Shirt", 8, "shirt", "medium"));
+            ItemList.Add(new Softgoods("Pants", 5, "pants", "large"));
+            ItemList.Add(new Hardgoods("Tent", 3, "3 season", 2));
+            
+            // Display item names to list box
+            for (int i = 0; i < ItemList.Count; i++)
+            {
+                lstbx_inventory.Items.Add(ItemList[i].itemName);
+            }
         }
     }
 }
