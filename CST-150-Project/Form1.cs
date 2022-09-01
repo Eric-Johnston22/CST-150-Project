@@ -17,98 +17,148 @@ namespace CST_150_Project
             InitializeComponent();
         }
 
-        // Parent item class
-        abstract class Item
+        public static List<Item> ItemList = new List<Item>();
+        public InventoryManager inventoryManager = new InventoryManager();
+
+
+        // Item class
+        /*public class Item
         {
             public string itemName;
             public int qty;
-
-            // Return item type
-            public abstract string getType();
+            public string size;
             
             // Constructor with parameters
-            public Item(string itemName, int qty)
+            public Item(string itemName, int qty, string size)
             {
                 this.itemName = itemName;
                 this.qty = qty;
-            }
-        }
-
-        class Footwear : Item
-        {
-            public string type;
-            public double size;
-
-
-            // Constructor with parameters
-            public Footwear (string itemName, int qty, string type, double size) : base (itemName, qty)
-            {
-                this.type = type;
                 this.size = size;
             }
+        }*/
 
-            // Return item type
-            public override string getType()
-            {
-                return type;
-            }
-        }
-
-        class Softgoods : Item
+        // Inventory manager
+       /* public class InventoryManager
         {
-            public string type;
-            public string size;
-
-            // Constructor with parameters
-            public Softgoods (string itemName, int qty, string type, string size) : base(itemName, qty)
+            public void AddItem(string itemName, int qty, string size)
             {
-                this.type = type;
-                this.size = size;
+                ItemList.Add(new Item(itemName, qty, size));
             }
 
-            // Return item type
-            public override string getType()
+            public void DeleteItem(string name)
             {
-                return type;
+                for(int i = 0; i < ItemList.Count; i++)
+                {
+                    if (ItemList[i].itemName == name)
+                    {
+                        ItemList.Remove(ItemList[i]);
+                    }
+                }
             }
-        }
 
-        class Hardgoods : Item
+            public void ChangeItemStock(Form1 form, int qty)
+            {
+                string selectedItem = form.lstbx_inventory.SelectedItem.ToString();
+                int index = form.lstbx_inventory.FindString(form.lstbx_inventory.SelectedItem.ToString());
+
+                ItemList[index].qty = qty;
+            }
+
+            public void ItemSearchName(Form1 form, string name)
+            {
+                for (int i = 0; i < ItemList.Count; i++)
+                {
+                    if (ItemList[i].itemName == name)
+                    {
+                        int index = form.lstbx_inventory.FindString(ItemList[i].itemName);
+                        form.lstbx_inventory.SetSelected(index, true);
+                    }
+                    else if (ItemList[i].qty.ToString() == name)
+                    {
+                        int index = form.lstbx_inventory.FindString(ItemList[i].itemName);
+                        form.lstbx_inventory.SetSelected(index, true);
+                    }
+                }
+            }
+
+        }*/
+
+        public void DisplayInventory()
         {
-            public string type;
-            public double size;
-
-            // Constructor with parameters
-            public Hardgoods (string itemName, int qty, string type, double size) : base(itemName, qty)
+            lstbx_inventory.Items.Clear();
+            for (int i = 0; i < ItemList.Count; i++)
             {
-                this.type = type;
-                this.size = size;
-            }
-
-            // Return item type
-            public override string getType()
-            {
-                return type;
+                lstbx_inventory.Items.Add(ItemList[i].itemName);
             }
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            // Create list of items
-            List<Item> ItemList = new List<Item>();
+            //Form2 form2 = new Form2();
+            // Starting inventory
+            inventoryManager.AddItem("Hiking shoe", 7, "9");
+            inventoryManager.AddItem("Tent", 3, "2 person");
+            inventoryManager.AddItem("Pants", 5, "large");
+            inventoryManager.AddItem("Backpack", 12, "medium");
 
-            // Create item objects and add to list
-            ItemList.Add(new Footwear("Hiking shoe", 3, "shoe", 9));
-            ItemList.Add(new Footwear("Hiking boot", 2, "boot", 10));
-            ItemList.Add(new Softgoods("Shirt", 8, "shirt", "medium"));
-            ItemList.Add(new Softgoods("Pants", 5, "pants", "large"));
-            ItemList.Add(new Hardgoods("Tent", 3, "3 season", 2));
-            
             // Display item names to list box
-            for (int i = 0; i < ItemList.Count; i++)
-            {
-                lstbx_inventory.Items.Add(ItemList[i].itemName);
-            }
+            DisplayInventory();
+
+            lstbx_inventory.SelectedIndexChanged += new System.EventHandler(lstbx_inventory_SelectedIndexChanged);
+            tbx_search.TextChanged += new System.EventHandler(tbx_search_TextChangedName);
+        }
+
+        private void btn_delete_item_Click(object sender, EventArgs e)
+        {
+            inventoryManager.DeleteItem(lstbx_inventory.SelectedItem.ToString());
+
+            DisplayInventory();
+        }
+
+        private void lstbx_inventory_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            string selectedItem = lstbx_inventory.SelectedItem.ToString();
+            int index = lstbx_inventory.FindString(selectedItem);
+
+            // Display selected item's current stock
+            numericUpDown1.Value = ItemList[index].qty;
+
+
+        }
+
+        private void btn_Add_Click(object sender, EventArgs e)
+        {
+            inventoryManager.AddItem(tbx_ItemName.Text, int.Parse(tbx_Qty.Text), tbx_Size.Text);
+            DisplayInventory();
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            int count = Convert.ToInt32(Math.Round(numericUpDown1.Value, 0));
+            inventoryManager.ChangeItemStock(this, count);
+
+        }
+
+        void tbx_search_TextChangedName(object sender, System.EventArgs e)
+        {
+            string text = tbx_search.Text;
+            inventoryManager.ItemSearchName(this, text);
+        }
+
+        private void btn_change_form_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+
+            Form2 form2 = new Form2();
+
+
+            form2.Show(this);
+
+
+            // When results form is closed, show LuckyNumbers form
+            form2 = null;
+
+            this.Show();
         }
     }
 }
