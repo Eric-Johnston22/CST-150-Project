@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace CST_150_Project
 {
-    //using static Form1;
     public class InventoryManager
     {
         public void AddItem(string itemName, int qty, string size)

@@ -20,69 +20,7 @@ namespace CST_150_Project
         public static List<Item> ItemList = new List<Item>();
         public InventoryManager inventoryManager = new InventoryManager();
 
-
-        // Item class
-        /*public class Item
-        {
-            public string itemName;
-            public int qty;
-            public string size;
-            
-            // Constructor with parameters
-            public Item(string itemName, int qty, string size)
-            {
-                this.itemName = itemName;
-                this.qty = qty;
-                this.size = size;
-            }
-        }*/
-
-        // Inventory manager
-       /* public class InventoryManager
-        {
-            public void AddItem(string itemName, int qty, string size)
-            {
-                ItemList.Add(new Item(itemName, qty, size));
-            }
-
-            public void DeleteItem(string name)
-            {
-                for(int i = 0; i < ItemList.Count; i++)
-                {
-                    if (ItemList[i].itemName == name)
-                    {
-                        ItemList.Remove(ItemList[i]);
-                    }
-                }
-            }
-
-            public void ChangeItemStock(Form1 form, int qty)
-            {
-                string selectedItem = form.lstbx_inventory.SelectedItem.ToString();
-                int index = form.lstbx_inventory.FindString(form.lstbx_inventory.SelectedItem.ToString());
-
-                ItemList[index].qty = qty;
-            }
-
-            public void ItemSearchName(Form1 form, string name)
-            {
-                for (int i = 0; i < ItemList.Count; i++)
-                {
-                    if (ItemList[i].itemName == name)
-                    {
-                        int index = form.lstbx_inventory.FindString(ItemList[i].itemName);
-                        form.lstbx_inventory.SetSelected(index, true);
-                    }
-                    else if (ItemList[i].qty.ToString() == name)
-                    {
-                        int index = form.lstbx_inventory.FindString(ItemList[i].itemName);
-                        form.lstbx_inventory.SetSelected(index, true);
-                    }
-                }
-            }
-
-        }*/
-
+        // Display items in inventory
         public void DisplayInventory()
         {
             lstbx_inventory.Items.Clear();
@@ -94,7 +32,6 @@ namespace CST_150_Project
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //Form2 form2 = new Form2();
             // Starting inventory
             inventoryManager.AddItem("Hiking shoe", 7, "9");
             inventoryManager.AddItem("Tent", 3, "2 person");
@@ -122,14 +59,6 @@ namespace CST_150_Project
 
             // Display selected item's current stock
             numericUpDown1.Value = ItemList[index].qty;
-
-
-        }
-
-        private void btn_Add_Click(object sender, EventArgs e)
-        {
-            inventoryManager.AddItem(tbx_ItemName.Text, int.Parse(tbx_Qty.Text), tbx_Size.Text);
-            DisplayInventory();
         }
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
@@ -148,16 +77,10 @@ namespace CST_150_Project
         private void btn_change_form_Click(object sender, EventArgs e)
         {
             this.Hide();
-
             Form2 form2 = new Form2();
-
-
             form2.Show(this);
-
-
-            // When results form is closed, show LuckyNumbers form
+            // When results form is closed, show Form1
             form2 = null;
-
             this.Show();
         }
     }
