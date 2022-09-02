@@ -28,6 +28,7 @@
         /// </summary>
         public void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.lstbx_inventory = new System.Windows.Forms.ListBox();
             this.tbx_search = new System.Windows.Forms.TextBox();
             this.lbl_current_stock = new System.Windows.Forms.Label();
@@ -56,10 +57,9 @@
             // 
             // lbl_current_stock
             // 
-            this.lbl_current_stock.AutoSize = true;
-            this.lbl_current_stock.Location = new System.Drawing.Point(283, 408);
+            this.lbl_current_stock.Location = new System.Drawing.Point(292, 403);
             this.lbl_current_stock.Name = "lbl_current_stock";
-            this.lbl_current_stock.Size = new System.Drawing.Size(76, 13);
+            this.lbl_current_stock.Size = new System.Drawing.Size(76, 19);
             this.lbl_current_stock.TabIndex = 9;
             this.lbl_current_stock.Text = "Current stock: ";
             // 
@@ -86,15 +86,17 @@
             // lbl_Search
             // 
             this.lbl_Search.AutoSize = true;
-            this.lbl_Search.Location = new System.Drawing.Point(362, 72);
+            this.lbl_Search.BackColor = System.Drawing.SystemColors.Window;
+            this.lbl_Search.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.lbl_Search.Location = new System.Drawing.Point(326, 72);
             this.lbl_Search.Name = "lbl_Search";
-            this.lbl_Search.Size = new System.Drawing.Size(64, 13);
+            this.lbl_Search.Size = new System.Drawing.Size(136, 13);
             this.lbl_Search.TabIndex = 18;
-            this.lbl_Search.Text = "Item Search";
+            this.lbl_Search.Text = "Search by name or quantity";
             // 
             // numericUpDown1
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(365, 406);
+            this.numericUpDown1.Location = new System.Drawing.Point(374, 403);
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown1.TabIndex = 19;
@@ -114,6 +116,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(800, 539);
             this.Controls.Add(this.btn_change_form);
             this.Controls.Add(this.numericUpDown1);
@@ -123,6 +127,8 @@
             this.Controls.Add(this.lbl_current_stock);
             this.Controls.Add(this.tbx_search);
             this.Controls.Add(this.lstbx_inventory);
+            this.Cursor = System.Windows.Forms.Cursors.Default;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Form1";
             this.Text = "Inventory";
             this.Load += new System.EventHandler(this.Form1_Load);

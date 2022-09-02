@@ -124,7 +124,6 @@
             this.Controls.Add(this.tbx_ItemName);
             this.Name = "Form2";
             this.Text = "Orders";
-            this.Load += new System.EventHandler(this.Form2_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

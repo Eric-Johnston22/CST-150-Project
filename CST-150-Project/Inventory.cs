@@ -27,7 +27,7 @@ namespace CST_150_Project
         public void ChangeItemStock(Form1 form, int qty)
         {
             string selectedItem = form.lstbx_inventory.SelectedItem.ToString();
-            int index = form.lstbx_inventory.FindString(form.lstbx_inventory.SelectedItem.ToString());
+            int index = form.lstbx_inventory.FindString(selectedItem);
 
             Form1.ItemList[index].qty = qty;
         }

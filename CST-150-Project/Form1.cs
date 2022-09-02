@@ -24,6 +24,7 @@ namespace CST_150_Project
         public void DisplayInventory()
         {
             lstbx_inventory.Items.Clear();
+            
             for (int i = 0; i < ItemList.Count; i++)
             {
                 lstbx_inventory.Items.Add(ItemList[i].itemName);
